@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
-import readingRanges
-import climateReading
+from readingRanges import ReadingRanges
+from climateReading import ClimateReading
 
 
 # TODO DB class details can go in a seperate py file
