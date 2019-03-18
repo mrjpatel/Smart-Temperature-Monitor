@@ -13,7 +13,7 @@ class ClimateReading:
         date_time = datetime.datetime.now()
         temperature = sense.get_temperature()
         humidity = sense.get_humidity()
-        cls(date_time, temperature, humidity)
+        return cls(date_time, temperature, humidity)
 
     def outside_config_range(self, range):
         if self.temperature < range.min_temperature or \
