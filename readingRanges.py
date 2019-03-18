@@ -23,15 +23,18 @@ class ReadingRanges:
     def update_defualts_from_json(cls, jsonFilePath):
         with open(jsonFilePath) as json_file:
             data = json.load(json_file)
+            validate_range_json(data)
             cls.min_temperature = data["min_temperature"]
             cls.max_temperature = data["max_temperature"]
             cls.min_humidity = data["min_humidity"]
             cls.max_humidity = data["max_humidity"]
+            print('Updated defaults: ' + cls.min_temperature + ',' + cls.max_temperature + ',' + cls.min_humidity + ',' + cls.max_humidity)
 
     @classmethod
     def from_json(cls, jsonFilePath):
         with open(jsonFilePath) as json_file:
             data = json.load(json_file)
+            validate_range_json(data)
             cls(
                 data["min_temperature"],
                 data["max_temperature"],
