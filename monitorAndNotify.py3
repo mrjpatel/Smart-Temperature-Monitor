@@ -1,5 +1,3 @@
-import json
-import datetime
 from sense_hat import SenseHat
 import readingRanges
 import climateReading
