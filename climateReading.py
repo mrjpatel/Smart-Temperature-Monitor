@@ -30,9 +30,9 @@ class ClimateReading:
     # TODO Japan to write, change params to suit db setup.
     # Create class to store DB info and push/qury logic?
     def write_to_db(self, dbinfo):
-        print(self.current_date_time)
-        print(self.temperature)
-        print(self.humidity)
+        print('Time: {}'.format(self.current_date_time))
+        print('Temp: {}'.format(self.temperature))
+        print('Humidity: {}'.format(self.humidity))
 
     # TODO Japan to write, change params to suit db setup.
     # Create table to keep track of this.
