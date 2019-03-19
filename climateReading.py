@@ -18,16 +18,16 @@ class ClimateReading:
     def outside_config_range(self, range):
         if self.temperature < range.min_temperature:
             return "{} *C Below the minimum temperature".format(
-                round(range.min_temperature - round(self.temperature, 2), 2))
+                round((range.min_temperature - self.temperature), 2))
         if self.temperature > range.max_temperature:
             return "{} *C Above the maximum temperature".format(
-                round(round(self.temperature, 2) - range.max_temperature), 2)
+                round((self.temperature - range.max_temperature), 2))
         if self.humidity < range.min_humidity:
             return "{}% Below the minimum humidity".format(
-                ((1 - round((self.humidity/range.min_humidity), 2))*100))
+                round((range.min_humidity - self.humidity), 2))
         if self.humidity > range.max_humidity:
             return "{}% Above the maximum humidity".format(
-                ((round((self.humidity/range.max_humidity), 2) - 1)*100))
+                round((self.humidity - range.max_humidity), 2))
         return ""
 
     # TODO Russell to write logic. Will need to change params once looked into
