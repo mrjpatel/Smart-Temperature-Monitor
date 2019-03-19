@@ -16,16 +16,23 @@ class ClimateReading:
         return cls(date_time, temperature, humidity)
 
     def outside_config_range(self, range):
-        if self.temperature < range.min_temperature or \
-           self.temperature > range.max_temperature or \
-           self.humidity < range.min_humidity or \
-           self.humidity > range.max_humidity:
-            return True
-        return False
-
-    # TODO Russell to write logic. Will need to change params once looked into
-    def notify_pushbullet(self):
-        pass
+        if self.temperature < range.min_temperature:
+            return "Temp: {}*C, {}*C Below the minimum temperature".format(
+                round(self.temperature, 1),
+                round((range.min_temperature - self.temperature), 1))
+        if self.temperature > range.max_temperature:
+            return "Temp: {}*C, {} *C Above the maximum temperature".format(
+                round(self.temperature, 1),
+                round((self.temperature - range.max_temperature), 1))
+        if self.humidity < range.min_humidity:
+            return "Humidity: {}%, {}% Below the minimum humidity".format(
+                round(self.humidity, 1),
+                round((range.min_humidity - self.humidity), 1))
+        if self.humidity > range.max_humidity:
+            return "Humidity: {}%, {}% Above the maximum humidity".format(
+                round(self.humidity, 1),
+                round((self.humidity - range.max_humidity), 1))
+        return ""
 
     # TODO Japan to write, change params to suit db setup.
     # Create class to store DB info and push/qury logic?
