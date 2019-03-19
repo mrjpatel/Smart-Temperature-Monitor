@@ -2,7 +2,11 @@ import requests
 
 
 class PushBullet:
-    token = "o.2E7gXHij6qvcSNLAEsBzatiYOaw75bNm"
+    @classmethod
+    def loadToken(cls, jsonFilePath):
+        with open(jsonFilePath) as json_file:
+            data = json.load(json_file)
+            cls.token = data['token']
 
     @classmethod
     def notify(cls, message):

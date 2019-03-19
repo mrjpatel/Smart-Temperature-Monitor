@@ -40,5 +40,6 @@ class MonitorAndNotify:
                 PushBullet.notify(error)
                 current_reading.update_notify_today_status("db_info")
 
+PushBullet.loadToken("accessToken.json")
 monitorAndNotify = MonitorAndNotify("config.json")
 monitorAndNotify.run()
