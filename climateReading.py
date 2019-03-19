@@ -23,10 +23,10 @@ class ClimateReading:
             return "{} *C Above the maximum temperature".format(
                 round(self.temperature, 2) - range.max_temperature)
         if self.humidity < range.min_humidity:
-            return = "{}% Below the minimum humidity".format(
+            return "{}% Below the minimum humidity".format(
                 ((1 - round((self.humidity/range.min_humidity), 2))*100))
         if self.humidity > range.max_humidity:
-            return = "{}% Above the maximum humidity".format(
+            return "{}% Above the maximum humidity".format(
                 ((round((self.humidity/range.max_humidity), 2) - 1)*100))
         retrun ""
 
