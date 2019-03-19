@@ -34,10 +34,6 @@ class ClimateReading:
                 round((self.humidity - range.max_humidity), 2))
         return ""
 
-    # TODO Russell to write logic. Will need to change params once looked into
-    def notify_pushbullet(self, range, error):
-        pass
-
     # TODO Japan to write, change params to suit db setup.
     # Create class to store DB info and push/qury logic?
     def write_to_db(self, dbinfo):

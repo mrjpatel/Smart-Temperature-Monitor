@@ -1,6 +1,7 @@
 from sense_hat import SenseHat
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
+from pushBullet import PushBullet
 
 
 # TODO DB class details can go in a seperate py file
@@ -36,7 +37,7 @@ class MonitorAndNotify:
             print("Outside Configured Ranages!")
             print("Error: {}".format(error))
             if not current_reading.notified_pushbullet_today("db_info"):
-                current_reading.notify_pushbullet(ReadingRanges, error)
+                PushBullet.notify(error)
                 current_reading.update_notify_today_status("db_info")
 
 monitorAndNotify = MonitorAndNotify("config.json")
