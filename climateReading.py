@@ -28,7 +28,7 @@ class ClimateReading:
         if self.humidity > range.max_humidity:
             return "{}% Above the maximum humidity".format(
                 ((round((self.humidity/range.max_humidity), 2) - 1)*100))
-        retrun ""
+        return ""
 
     # TODO Russell to write logic. Will need to change params once looked into
     def notify_pushbullet(self):
