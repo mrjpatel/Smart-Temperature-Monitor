@@ -17,21 +17,25 @@ class ClimateReading:
 
     def outside_config_range(self, range):
         if self.temperature < range.min_temperature:
-            return "{} *C Below the minimum temperature".format(
+            return "Temp: {}*C, {}*C Below the minimum temperature".format(
+                round(self.temperature, 1),
                 round((range.min_temperature - self.temperature), 2))
         if self.temperature > range.max_temperature:
-            return "{} *C Above the maximum temperature".format(
+            return "Temp: {}*C, {} *C Above the maximum temperature".format(
+                round(self.temperature, 1),
                 round((self.temperature - range.max_temperature), 2))
         if self.humidity < range.min_humidity:
-            return "{}% Below the minimum humidity".format(
+            return "Humidity: {}%, {}% Below the minimum humidity".format(
+                round(self.humidity, 1),
                 round((range.min_humidity - self.humidity), 2))
         if self.humidity > range.max_humidity:
-            return "{}% Above the maximum humidity".format(
+            return "Humidity: {}%, {}% Above the maximum humidity".format(
+                round(self.humidity, 1),
                 round((self.humidity - range.max_humidity), 2))
         return ""
 
     # TODO Russell to write logic. Will need to change params once looked into
-    def notify_pushbullet(self):
+    def notify_pushbullet(self, range, error):
         pass
 
     # TODO Japan to write, change params to suit db setup.

@@ -36,7 +36,7 @@ class MonitorAndNotify:
             print("Outside Configured Ranages!")
             print("Error: {}".format(error))
             if not current_reading.notified_pushbullet_today("db_info"):
-                current_reading.notify_pushbullet()
+                current_reading.notify_pushbullet(ReadingRanges, error)
                 current_reading.update_notify_today_status("db_info")
 
 monitorAndNotify = MonitorAndNotify("config.json")
