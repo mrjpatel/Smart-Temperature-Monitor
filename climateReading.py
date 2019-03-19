@@ -16,12 +16,19 @@ class ClimateReading:
         return cls(date_time, temperature, humidity)
 
     def outside_config_range(self, range):
-        if self.temperature < range.min_temperature or \
-           self.temperature > range.max_temperature or \
-           self.humidity < range.min_humidity or \
-           self.humidity > range.max_humidity:
-            return True
-        return False
+        if self.temperature < range.min_temperature:
+            return "{} *C Below the minimum temperature".format(
+                range.min_temperature - round(self.temperature, 2))
+        if self.temperature > range.max_temperature:
+            return "{} *C Above the maximum temperature".format(
+                round(self.temperature, 2) - range.max_temperature)
+        if self.humidity < range.min_humidity:
+            return = "{}% Below the minimum humidity".format(
+                ((1 - round((self.humidity/range.min_humidity), 2))*100))
+        if self.humidity > range.max_humidity:
+            return = "{}% Above the maximum humidity".format(
+                ((round((self.humidity/range.max_humidity), 2) - 1)*100))
+        retrun ""
 
     # TODO Russell to write logic. Will need to change params once looked into
     def notify_pushbullet(self):

@@ -31,9 +31,10 @@ class MonitorAndNotify:
         # TODO Change based on DB implementation
         # This goes for all the db function calls
         current_reading.write_to_db("db_info")
-
-        if current_reading.outside_config_range(ReadingRanges):
+        error = current_reading.outside_config_range(ReadingRanges)
+        if error != "":
             print("Outside Configured Ranages!")
+            print("Error: {}".format(error))
             if not current_reading.notified_pushbullet_today("db_info"):
                 current_reading.notify_pushbullet()
                 current_reading.update_notify_today_status("db_info")
