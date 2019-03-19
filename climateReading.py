@@ -19,19 +19,19 @@ class ClimateReading:
         if self.temperature < range.min_temperature:
             return "Temp: {}*C, {}*C Below the minimum temperature".format(
                 round(self.temperature, 1),
-                round((range.min_temperature - self.temperature), 2))
+                round((range.min_temperature - self.temperature), 1))
         if self.temperature > range.max_temperature:
             return "Temp: {}*C, {} *C Above the maximum temperature".format(
                 round(self.temperature, 1),
-                round((self.temperature - range.max_temperature), 2))
+                round((self.temperature - range.max_temperature), 1))
         if self.humidity < range.min_humidity:
             return "Humidity: {}%, {}% Below the minimum humidity".format(
                 round(self.humidity, 1),
-                round((range.min_humidity - self.humidity), 2))
+                round((range.min_humidity - self.humidity), 1))
         if self.humidity > range.max_humidity:
             return "Humidity: {}%, {}% Above the maximum humidity".format(
                 round(self.humidity, 1),
-                round((self.humidity - range.max_humidity), 2))
+                round((self.humidity - range.max_humidity), 1))
         return ""
 
     # TODO Japan to write, change params to suit db setup.
