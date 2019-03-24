@@ -1,4 +1,3 @@
-from sense_hat import SenseHat
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
 from pushBullet import PushBullet
@@ -19,9 +18,8 @@ class MonitorAndNotify:
             ReadingRanges.min_humidity,
             ReadingRanges.max_humidity))
 
-        sense = SenseHat()
         ReadingRanges.update_defaults_from_json(self.range_config)
-        current_reading = ClimateReading.from_sensehat(sense)
+        current_reading = ClimateReading.from_sensehat()
 
         print("MinTemp: {} MaxTemp: {} MinHum: {} MaxHum: {}".format(
             ReadingRanges.min_temperature,
