@@ -1,19 +1,22 @@
 import sqlite3
 from urllib.request import pathname2url
+import datetime
 
 class Database:
 
     dbname = 'sensehat.db'
 
     #check if the database exsits already
-    def dbConnect(self):
+    def checkdbConnection(self):
         try:
             con = sqlite3.connect('file:sensehat.db?mode=rw', uri=True)
             print('Establishing a connection...')
-            # return con
+            return con
         except sqlite3.OperationalError:
             print('Creating tables...')
             self.createTables()
+            con = sqlite3.connect(Database.dbname)
+            return con
             
     # creates tables if the database doesn't exist
     def createTables(self):
@@ -31,5 +34,13 @@ class Database:
                 notified NUMERIC
                 )""")
 
-database = Database()
-database.dbConnect()
+    # logs temperature and humidity data
+    def logTempHumData (self, timestamp, temp, humidity):	
+        conn = self.checkdbConnection()
+        curs = conn.cursor()
+        curs.execute("INSERT INTO SENSEHAT_data values((?), (?), (?))", (timestamp, temp, humidity,))
+        conn.commit()
+        conn.close()
+
+#database = Database()
+#database.logTempHumData(datetime.datetime.now(), 40, 50)
