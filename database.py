@@ -42,5 +42,15 @@ class Database:
         conn.commit()
         conn.close()
 
-#database = Database()
-#database.logTempHumData(datetime.datetime.now(), 40, 50)
+    # logs notification data
+    def logNotificationData (self, timestamp, notified):	
+        conn = self.checkdbConnection()
+        curs = conn.cursor()
+        curs.execute("INSERT INTO NOTIFICATION_data values((?), (?))", (timestamp, notified,))
+        conn.commit()
+        conn.close()
+
+    
+
+# database = Database()
+# database.logNotifiedData(datetime.datetime.now(), 1)
