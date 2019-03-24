@@ -16,8 +16,8 @@ class ClimateReading:
         sense_temp = sense.get_temperature()
         cpu_temp = ClimateReading.get_cpu_temp()
         humidity = sense.get_humidity()
-        calculated_temp = sense_temperature - (
-            (cpu_temp - sense_temperature)/0.5923)
+        calculated_temp = sense_temp - (
+            (cpu_temp - sense_temp)/0.5923)
 
         return cls(date_time, calculated_temp, humidity)
 
