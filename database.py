@@ -47,7 +47,15 @@ class Database:
         conn = self.checkdbConnection()
         curs = conn.cursor()
         curs.execute("INSERT INTO NOTIFICATION_data values((?), (?))", (timestamp, notified,))
-        conn.commit()
+        conn.close()
+
+    # Gets all the temperature and humidity data from database
+    def getAllSenseHatData (self):	
+        conn = self.checkdbConnection()
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM SENSEHAT_data")
+        senseHatData = curs.fetchall()
+        return senseHatData
         conn.close()
 
     # checks if the notification has been sent already for a given date ( date format '2019-03-25')
@@ -69,5 +77,8 @@ class Database:
     
 
 database = Database()
-database.logNotificationData(datetime.datetime.now().date(), 1)
+print(database.getAllSenseHatData())
+#database.logTempHumData(datetime.datetime.now(), 25, 30)
+#database.logTempHumData(datetime.datetime.now(), 40, 50)
+#database.logTempHumData(datetime.datetime.now(), 70, 80)
 #print(database.hasNotified(datetime.datetime.now().date()))
