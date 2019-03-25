@@ -55,8 +55,8 @@ class Database:
         curs = conn.cursor()
         curs.execute("SELECT * FROM SENSEHAT_data")
         senseHatData = curs.fetchall()
-        return senseHatData
         conn.close()
+        return senseHatData
 
     # checks if the notification has been sent already for a given date ( date format '2019-03-25')
     def hasNotified (self, timestamp):	
