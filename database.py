@@ -74,11 +74,3 @@ class Database:
         conn.commit()
         conn.close()
 
-    
-
-database = Database()
-print(database.getAllSenseHatData())
-#database.logTempHumData(datetime.datetime.now(), 25, 30)
-#database.logTempHumData(datetime.datetime.now(), 40, 50)
-#database.logTempHumData(datetime.datetime.now(), 70, 80)
-#print(database.hasNotified(datetime.datetime.now().date()))
