@@ -50,7 +50,24 @@ class Database:
         conn.commit()
         conn.close()
 
+    # checks if the notification has been sent already for a given date ( date format '2019-03-25')
+    def hasNotified (self, timestamp):	
+        conn = self.checkdbConnection()
+        curs = conn.cursor()
+        curs.execute("SELECT * FROM NOTIFICATION_data WHERE timestamp=:timestamp", {"timestamp": timestamp})
+        notificationValue = curs.fetchone()
+        if notificationValue is not None:
+            print("The notification has already been sent")
+            print(notificationValue)
+            return True
+        else:
+            print("Notification has not been sent")
+            return False
+        conn.commit()
+        conn.close()
+
     
 
-# database = Database()
-# database.logNotifiedData(datetime.datetime.now(), 1)
+database = Database()
+database.logNotificationData(datetime.datetime.now().date(), 1)
+#print(database.hasNotified(datetime.datetime.now().date()))
