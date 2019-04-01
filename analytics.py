@@ -18,7 +18,6 @@ class Analytics:
             kdeFileName
         )
         print("Saved Plot as: {}".format(kdeFileName))
-        pass
 
     def drawHistogram(self):
         print("Drawing Histogram...")
