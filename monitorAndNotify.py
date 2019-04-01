@@ -1,6 +1,6 @@
-from sense_hat import SenseHat
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
+from pushBullet import PushBullet
 
 
 # TODO DB class details can go in a seperate py file
@@ -18,9 +18,8 @@ class MonitorAndNotify:
             ReadingRanges.min_humidity,
             ReadingRanges.max_humidity))
 
-        sense = SenseHat()
         ReadingRanges.update_defaults_from_json(self.range_config)
-        current_reading = ClimateReading.from_sensehat(sense)
+        current_reading = ClimateReading.from_sensehat()
 
         print("MinTemp: {} MaxTemp: {} MinHum: {} MaxHum: {}".format(
             ReadingRanges.min_temperature,
@@ -31,12 +30,14 @@ class MonitorAndNotify:
         # TODO Change based on DB implementation
         # This goes for all the db function calls
         current_reading.write_to_db("db_info")
-
-        if current_reading.outside_config_range(ReadingRanges):
+        error = current_reading.outside_config_range(ReadingRanges)
+        if error != "":
             print("Outside Configured Ranages!")
+            print("Error: {}".format(error))
             if not current_reading.notified_pushbullet_today("db_info"):
-                current_reading.notify_pushbullet()
+                PushBullet.notify(error)
                 current_reading.update_notify_today_status("db_info")
 
+PushBullet.loadToken("accessToken.json")
 monitorAndNotify = MonitorAndNotify("config.json")
 monitorAndNotify.run()
