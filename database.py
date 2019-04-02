@@ -4,27 +4,28 @@ import datetime
 
 
 class Database:
-    dbname = 'sensehat.db'
 
     """
     check if the database exsits already
     """
-    def checkdbConnection(self):
+    @staticmethod
+    def checkdbConnection():
         try:
             con = sqlite3.connect('file:sensehat.db?mode=rw', uri=True)
             print('Establishing a connection...')
             return con
         except sqlite3.OperationalError:
             print('Creating tables...')
-            self.createTables()
-            con = sqlite3.connect(Database.dbname)
+            Database.createTables()
+            con = sqlite3.connect('sensehat.db')
             return con
 
     """
     creates tables if the database doesn't exist
     """
-    def createTables(self):
-        con = sqlite3.connect(Database.dbname)
+    @staticmethod
+    def createTables():
+        con = sqlite3.connect('sensehat.db')
         with con:
             cur = con.cursor()
             cur.execute("""CREATE TABLE SENSEHAT_data (
@@ -41,8 +42,9 @@ class Database:
     """
     logs temperature and humidity data
     """
-    def logTempHumData(self, timestamp, temp, humidity):
-        conn = self.checkdbConnection()
+    @staticmethod
+    def logTempHumData(timestamp, temp, humidity):
+        conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO SENSEHAT_data
                         values((?), (?), (?))""", (timestamp, temp, humidity,))
@@ -52,8 +54,9 @@ class Database:
     """
     logs notification data
     """
-    def logNotificationData(self, timestamp, notified):
-        conn = self.checkdbConnection()
+    @staticmethod
+    def logNotificationData(timestamp, notified):
+        conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO NOTIFICATION_data
                         values((?), (?))""", (timestamp, notified,))
@@ -62,8 +65,9 @@ class Database:
     """
     Gets all the temperature and humidity data from database
     """
-    def getAllSenseHatData(self):
-        conn = self.checkdbConnection()
+    @staticmethod
+    def getAllSenseHatData():
+        conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("SELECT * FROM SENSEHAT_data")
         senseHatData = curs.fetchall()
@@ -74,8 +78,8 @@ class Database:
     checks if the notification has been sent already for a given date
     (date format '2019-03-25')
     """
-    def hasNotified(self, timestamp):
-        conn = self.checkdbConnection()
+    def hasNotified(timestamp):
+        conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM NOTIFICATION_data
                     WHERE timestamp=:timestamp""", {"timestamp": timestamp})
@@ -89,3 +93,5 @@ class Database:
             return False
         conn.commit()
         conn.close()
+
+Database.checkdbConnection()
