@@ -35,8 +35,7 @@ class Database:
                 )""")
 
             cur.execute("""CREATE TABLE NOTIFICATION_data(
-                timestamp DATETIME,
-                notified NUMERIC
+                timestamp DATETIME
                 )""")
 
     """
@@ -55,11 +54,12 @@ class Database:
     logs notification data
     """
     @staticmethod
-    def logNotificationData(timestamp, notified):
+    def logNotificationData(timestamp):
         conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO NOTIFICATION_data
-                        values((?), (?))""", (timestamp, notified,))
+                        values((?))""", (timestamp,))
+        conn.commit()
         conn.close()
 
     """
@@ -78,20 +78,39 @@ class Database:
     checks if the notification has been sent already for a given date
     (date format '2019-03-25')
     """
+    @staticmethod
     def hasNotified(timestamp):
+        # gets the last notification sent from database
+        lastNotify = Database.getLastNotification()
+        # converts utc time to local time
+        localTimeStampNotify = Database.getLocalTime(lastNotify)
+        # gets the local date of the last notification sent
+        localDate = Database.getDateFromTimestamp(localTimeStampNotify)
+
+        if localDate == getDateFromTimestamp(timestamp):
+            print('Last notification in database macthes with today\'s date')
+            return True
+        else:
+            print('we haven\'t sent a notification today')
+            return False
+
+    @staticmethod
+    def getLastNotification():
         conn = Database.checkdbConnection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM NOTIFICATION_data
-                    WHERE timestamp=:timestamp""", {"timestamp": timestamp})
-        notificationValue = curs.fetchone()
-        if notificationValue is not None:
-            print("The notification has already been sent")
-            print(notificationValue)
-            return True
-        else:
-            print("Notification has not been sent")
-            return False
+                        ORDER BY timestamp DESC LIMIT 1
+                    """)
+        lastNotification = curs.fetchone()
         conn.commit()
         conn.close()
+        return lastNotification
 
-Database.checkdbConnection()
+    @staticmethod
+    def getDateFromTimestamp(timestamp):
+        return timestamp.split(' ', 1)[0]
+
+    @staticmethod
+    def getLocalTime(timestamp):
+        # create a conversion that converts utc to local time
+        return timestamp

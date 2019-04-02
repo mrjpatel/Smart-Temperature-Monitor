@@ -1,11 +1,8 @@
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
 from pushBullet import PushBullet
+from databse import Database
 
-
-# TODO DB class details can go in a seperate py file
-# as analytics needs to use the same info.
-# Adds reuseability. Just need to import the module
 
 class MonitorAndNotify:
     def __init__(self, range_config):
@@ -27,16 +24,20 @@ class MonitorAndNotify:
             ReadingRanges.min_humidity,
             ReadingRanges.max_humidity))
 
-        # TODO Change based on DB implementation
-        # This goes for all the db function calls
-        current_reading.write_to_db("db_info")
+        Database.logTempHumData(
+                                current_reading.current_date_time,
+                                round(current_reading.temperature, 1),
+                                round(current_reading.max_humidity, 1)
+                                )
+
         error = current_reading.outside_config_range(ReadingRanges)
         if error != "":
             print("Outside Configured Ranages!")
             print("Error: {}".format(error))
-            if not current_reading.notified_pushbullet_today("db_info"):
+            if not Database.hasNotified(current_reading.current_date_time):
                 PushBullet.notify(error)
-                current_reading.update_notify_today_status("db_info")
+                Database.logNotificationData(
+                    current_reading.current_date_time, 1)
 
 PushBullet.loadToken("accessToken.json")
 monitorAndNotify = MonitorAndNotify("config.json")
