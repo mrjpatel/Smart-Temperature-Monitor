@@ -37,7 +37,7 @@ class MonitorAndNotify:
             if not Database.hasNotified(current_reading.current_date_time):
                 PushBullet.notify(error)
                 Database.logNotificationData(
-                    current_reading.current_date_time, 1)
+                    current_reading.current_date_time)
 
 PushBullet.loadToken("accessToken.json")
 monitorAndNotify = MonitorAndNotify("config.json")
