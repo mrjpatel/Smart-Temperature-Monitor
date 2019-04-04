@@ -12,7 +12,7 @@ class ClimateReading:
     @classmethod
     def from_sensehat(cls):
         sense = SenseHat()
-        date_time = datetime.datetime.now()
+        date_time = datetime.datetime.utcnow()
         sense_temp = sense.get_temperature()
         cpu_temp = ClimateReading.get_cpu_temp()
         humidity = sense.get_humidity()
@@ -40,22 +40,6 @@ class ClimateReading:
                 round(self.humidity, 1),
                 round((self.humidity - range.max_humidity), 1))
         return rstr
-
-    # TODO Japan to write, change params to suit db setup.
-    # Create class to store DB info and push/qury logic?
-    def write_to_db(self, dbinfo):
-        print('Time: {}'.format(self.current_date_time))
-        print('Temp: {}'.format(self.temperature))
-        print('Humidity: {}'.format(self.humidity))
-
-    # TODO Japan to write, change params to suit db setup.
-    # Create table to keep track of this.
-    def notified_pushbullet_today(self, dbinfo):
-        return False
-
-    # TODO Japan to write, change params to suit db setup.
-    def update_notify_today_status(self, dbinfo):
-        pass
 
     @staticmethod
     def get_cpu_temp():
