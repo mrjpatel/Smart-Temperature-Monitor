@@ -70,7 +70,7 @@ $ python3 greenhouse_bluetooth.py
 #### Running on start up
 Run this script to enable this script on start up.
 ```bash
-$ bash runNotifyOnStartUp.sh
+$ bash runBluetoothOnStartUp.sh
 ```
 
 ## Analytics 
