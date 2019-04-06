@@ -1,0 +1,12 @@
+[Unit]
+Description=My Bluetooth Notification Service
+After=multi-user.target
+
+[Service]
+Type=idle
+User=pi
+WorkingDirectory=/home/pi/default
+ExecStart=/usr/bin/python3 /home/pi/default/greenhouse_bluetooth.py > /home/pi/default/greenhouse_bluetooth.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
