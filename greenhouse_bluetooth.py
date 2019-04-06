@@ -30,11 +30,14 @@ class Bluetooth_notify:
             if(reading.outside_config_range(ReadingRanges) == ""):
                 PushBullet.loadToken(push_token)
                 PushBullet.notify(
-                    "Device {} is in range.".format(connected_device) +
+                    "Device {} is in range. ".format(connected_device) +
                     "Current Temp is {}, ".format(reading.temperature) +
                     "Humidity is {}".format(reading.humidity)
                 )
                 return True
+            print("Outside Config Ranges")
+            return False
+        print("Not Found Paired Device")
         return False
 
     @staticmethod
@@ -51,13 +54,15 @@ class Bluetooth_notify:
         paired_list = []
         for d in data:
             paired_list.append(re.sub('^.*\((.*?)\)[^\(]*$', '\g<1>', str(d)))
+        print("Paired: {}".format(*paired_list))
         return paired_list
 
     @staticmethod
     def is_in_range(paired_list):
         print("Scanning...")
-        nearbyDevices = bluetooth.discover_devices()
-        for macAddress in nearbyDevices:
+        nearby_devices = bluetooth.discover_devices()
+        print("Nearby: {}".format(*nearby_devices))
+        for macAddress in nearby_devices:
             if macAddress in paired_list:
                 print("Found device with mac-address: " + macAddress)
                 return macAddress
