@@ -28,7 +28,7 @@ class Bluetooth_notify:
             ReadingRanges.update_defaults_from_json(config_file)
             reading = ClimateReading.from_sensehat()
             error = reading.outside_config_range(ReadingRanges)
-            PushBullet.loadToken(push_token)
+            PushBullet.load_token(push_token)
             PushBullet.notify(
                 "Device {} is in range. ".format(connected_device) +
                 "Current Temp is {}, ".format(reading.temperature) +
