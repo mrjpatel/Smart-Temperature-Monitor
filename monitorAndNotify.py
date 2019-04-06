@@ -1,7 +1,7 @@
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
 from pushBullet import PushBullet
-from databse import Database
+from database import Database
 
 
 class MonitorAndNotify:
@@ -25,10 +25,10 @@ class MonitorAndNotify:
             ReadingRanges.max_humidity))
 
         Database.logTempHumData(
-                                current_reading.current_date_time,
-                                round(current_reading.temperature, 1),
-                                round(current_reading.max_humidity, 1)
-                                )
+            current_reading.current_date_time,
+            round(current_reading.temperature, 1),
+            round(current_reading.humidity, 1)
+        )
 
         error = current_reading.outside_config_range(ReadingRanges)
         if error != "":
