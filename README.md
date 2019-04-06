@@ -47,9 +47,10 @@ This program will record the current tempurature and humidity from the SenseHat,
 $ python3 monitorAndNotify.py
 ```
 #### Scheduling
-This program works ideally when it is scheduled. This can be done via CRON on Raspberry Pi. The following script can be used to start the cron scheduling.
+This program works ideally when it is scheduled. This can be done via CRON on Raspberry Pi. The following script can be used to start the systemd scheduling.
+**Note: this script will restart your device for it to start**
 ```bash
-$ bash startcron.sh
+$ bash scheduleMonitorAndNotify.sh
 ```
 
 ## Create Report
@@ -69,6 +70,7 @@ $ python3 greenhouse_bluetooth.py
 ```
 #### Running on start up
 Run this script to enable this script on start up.
+**Note: this script will restart your device for it to start**
 ```bash
 $ bash runBluetoothOnStartUp.sh
 ```
