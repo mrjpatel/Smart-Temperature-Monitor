@@ -79,32 +79,51 @@ class Database:
     (date format '2019-03-25')
     """
     @staticmethod
-    def hasNotified(timestamp):
+    def hasNotified(time):
         # gets the last notification sent from database
         lastNotify = Database.getLastNotification()
-        # converts utc time to local time
-        localTimeStampNotify = Database.getLocalTime(lastNotify)
-        # gets the local date of the last notification sent
-        localDate = Database.getDateFromTimestamp(localTimeStampNotify)
-
-        if localDate == getDateFromTimestamp(timestamp):
-            print('Last notification in database macthes with today\'s date')
-            return True
-        else:
+        if lastNotify is None:
             print('we haven\'t sent a notification today')
             return False
+        else:
+            # converts utc time to local time
+            localtimestamp = Database.getLocalTime(lastNotify)
+            # convert local timestamp to local date
+            localDate = Database.getDateFromTimestamp(localtimestamp[0])
+            currentDate = Database.getDateFromTimestamp(time)
+            print(localDate)
+            if localDate == currentDate:
+                print('Last notification in database match today')
+                return True
+            else:
+                print('we haven\'t sent a notification today')
+                return False
 
     @staticmethod
     def getLastNotification():
+        if not Database.isNotificationDBEmpty():
+            conn = Database.checkdbConnection()
+            curs = conn.cursor()
+            curs.execute("""SELECT * FROM NOTIFICATION_data
+                            ORDER BY timestamp DESC LIMIT 1
+                        """)
+            last = curs.fetchone()
+            conn.close()
+            return last
+        else:
+            return None
+
+    @staticmethod
+    def isNotificationDBEmpty():
         conn = Database.checkdbConnection()
         curs = conn.cursor()
-        curs.execute("""SELECT * FROM NOTIFICATION_data
-                        ORDER BY timestamp DESC LIMIT 1
-                    """)
-        lastNotification = curs.fetchone()
-        conn.commit()
+        curs.execute("""SELECT * FROM NOTIFICATION_data""")
+        data = curs.fetchone()
         conn.close()
-        return lastNotification
+        if data is None:
+            return True
+        else:
+            return False
 
     @staticmethod
     def getDateFromTimestamp(timestamp):
