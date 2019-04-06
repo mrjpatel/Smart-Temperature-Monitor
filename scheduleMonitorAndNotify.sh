@@ -8,8 +8,8 @@ sudo systemctl enable minute-timer.timer
 sudo systemctl start  minute-timer.timer
 echo "Successfully added minute timer"
 
-sed -i "s+/home/pi+$(pwd)+g" monitor-and-notify.service
 sudo cp $(pwd)/monitor-and-notify.service /lib/systemd/system/
+sed -i "s+/home/pi/default+$(pwd)+g" /lib/systemd/system/monitor-and-notify.service
 sudo chmod 664 /lib/systemd/system/monitor-and-notify.service
 sudo systemctl daemon-reload
 sudo systemctl enable monitor-and-notify.service
