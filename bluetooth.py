@@ -12,18 +12,18 @@ class Bluetooth_notify:
     @staticmethod
     def run(config_file, push_token):
         while True:
-            if(Bluetooth.notify_about_weather(config_file, push_token)):
+            if(Bluetooth_notify.notify_about_weather(config_file, push_token)):
                 print("Sent notification. Sleeping 10 minutes...")
                 time.sleep(600)
             else:
                 print("Not Notified. Sleeping 10 seconds...")
                 time.sleep(10)
-    
+
     @staticmethod
     def notify_about_weather(config_file, push_token):
-        paired_list = Bluetooth.get_paired_list()
+        paired_list = Bluetooth_notify.get_paired_list()
 
-        connected_device = Bluetooth.is_in_range(paired_list)
+        connected_device = Bluetooth_notify.is_in_range(paired_list)
         if(connected_device != ""):
             ReadingRanges.update_defaults_from_json(config_file)
             reading = ClimateReading.from_sensehat()
