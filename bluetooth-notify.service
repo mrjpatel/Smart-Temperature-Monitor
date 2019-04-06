@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=idle
 User=pi
-WorkingDirectory=/home/pi/
+WorkingDirectory=/home/pi
 ExecStart=/usr/bin/python3 /home/pi/sample.py > /home/pi/sample.log 2>&1
 
 [Install]
