@@ -62,12 +62,14 @@ class Bluetooth_notify:
     def is_in_range(paired_list):
         print("Scanning...")
         nearby_devices = bluetooth.discover_devices()
+        for macAddress in nearbyDevices:
+            print("Found device with mac-address: " + macAddress)
         print("Nearby: ")
         print(*nearby_devices, sep=", ")
 
         for macAddress in nearby_devices:
             if macAddress in paired_list:
-                print("Found device with mac-address: " + macAddress)
+                print("Found paired device with mac-address: " + macAddress)
                 return macAddress
         return ""
 
