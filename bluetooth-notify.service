@@ -1,9 +1,11 @@
 [Unit]
-Description=My Sample Service
+Description=My Bluetooth Notification Service
 After=multi-user.target
 
 [Service]
 Type=idle
+User=pi
+ExecStartPre=chdir /home/pi/
 ExecStart=/usr/bin/python3 /home/pi/sample.py > /home/pi/sample.log 2>&1
 
 [Install]
