@@ -8,7 +8,7 @@ from readingRanges import ReadingRanges
 from pushBullet import PushBullet
 
 
-class Bluetooth:
+class Bluetooth_notify:
     @staticmethod
     def run(config_file, push_token):
         while True:
@@ -63,4 +63,4 @@ class Bluetooth:
                 return macAddress
         return ""
 
-Bluetooth.run("config.json", "accessToken.json")
+Bluetooth_notify.run("config.json", "accessToken.json")
