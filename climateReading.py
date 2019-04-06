@@ -6,8 +6,8 @@ import os
 class ClimateReading:
     def __init__(self, current_date_time, temperature, humidity):
         self.current_date_time = current_date_time
-        self.temperature = temperature
-        self.humidity = humidity
+        self.temperature = round(temperature, 2)
+        self.humidity = round(humidity, 2)
 
     @classmethod
     def from_sensehat(cls):
