@@ -20,8 +20,8 @@ class ReadingRanges:
         self.max_humidity = max_humidity
 
     @classmethod
-    def update_defaults_from_json(cls, jsonFilePath):
-        with open(jsonFilePath) as json_file:
+    def update_defaults_from_json(cls, json_file_path):
+        with open(json_file_path) as json_file:
             data = json.load(json_file)
             ReadingRanges.validate_range_json(data)
             cls.min_temperature = data["min_temperature"]
@@ -30,7 +30,7 @@ class ReadingRanges:
             cls.max_humidity = data["max_humidity"]
 
     @classmethod
-    def from_json(cls, jsonFilePath):
+    def from_json(cls, json_file_path):
         with open(jsonFilePath) as json_file:
             data = json.load(json_file)
             ReadingRanges.validate_range_json(data)

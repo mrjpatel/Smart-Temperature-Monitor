@@ -5,8 +5,9 @@ from database import Database
 
 
 class MonitorAndNotify:
-    def __init__(self, range_config):
+    def __init__(self, range_config, access_token):
         self.range_config = range_config
+        PushBullet.load_token(access_token)
 
     def run(self):
         print("Default: MinTemp: {} MaxTemp: {} MinHum: {} MaxHum: {}".format(
@@ -39,6 +40,10 @@ class MonitorAndNotify:
                 Database.logNotificationData(
                     current_reading.current_date_time)
 
-PushBullet.loadToken("accessToken.json")
-monitorAndNotify = MonitorAndNotify("config.json")
-monitorAndNotify.run()
+
+def main():
+    monitorAndNotify = MonitorAndNotify("config.json", "accessToken.json")
+    monitorAndNotify.run()
+
+if __name__ == '__main__':
+    main()

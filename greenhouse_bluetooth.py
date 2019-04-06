@@ -71,4 +71,9 @@ class Bluetooth_notify:
                 return macAddress
         return ""
 
-Bluetooth_notify.run("config.json", "accessToken.json")
+
+def main():
+    Bluetooth_notify.run("config.json", "accessToken.json")
+
+if __name__ == '__main__':
+    main()
