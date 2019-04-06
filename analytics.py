@@ -30,5 +30,10 @@ class Analytics:
         self.drawkdePlot()
         self.drawHistogram()
 
-analytics = Analytics()
-analytics.drawPlots()
+
+def main():
+    analytics = Analytics()
+    analytics.drawPlots()
+
+if __name__ == '__main__':
+    main()
