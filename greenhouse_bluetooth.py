@@ -54,6 +54,7 @@ class Bluetooth_notify:
         paired_list = []
         for d in data:
             paired_list.append(re.sub('^.*\((.*?)\)[^\(]*$', '\g<1>', str(d)))
+        paired_list.pop(0)
         print("Paired: ")
         print(*paired_list, sep=", ")
         return paired_list
