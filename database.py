@@ -90,7 +90,7 @@ class Database:
             localtimestamp = Database.getLocalTime(lastNotify)
             # convert local timestamp to local date
             localDate = Database.getDateFromTimestamp(localtimestamp[0])
-            currentDate = Database.getDateFromTimestamp(time)
+            currentDate = Database.getDateFromTimestamp(str(time))
             print(localDate)
             if localDate == currentDate:
                 print('Last notification in database match today')
