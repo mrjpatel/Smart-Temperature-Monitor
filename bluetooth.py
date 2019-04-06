@@ -3,9 +3,9 @@ import os
 import re
 import bluetooth
 import time
-import ClimateReading from climateReading
-import ReadingRanges from readingRanges
-import PushBullet from pushBullet
+from climateReading import ClimateReading
+from readingRanges import ReadingRanges
+from pushBullet import PushBullet
 
 
 class Bluetooth:
