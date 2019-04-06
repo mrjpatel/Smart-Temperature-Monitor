@@ -9,8 +9,8 @@ OnCalendar=*:0/1
 [Service]
 Type=idle
 User=pi
-WorkingDirectory=/home/pi
-ExecStart=/usr/bin/python3 /home/pi/monitorAndNotify.py > /home/pi/monitorAndNotify.log 2>&1
+WorkingDirectory=/home/pi/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem
+ExecStart=/usr/bin/python3 /home/pi/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/monitorAndNotify.py > /home/pi/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/Documents/workspace/TemperatureMonitoringSystem/monitorAndNotify.log 2>&1
 
 [Install]
 WantedBy=multi-user.target
