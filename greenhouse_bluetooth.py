@@ -27,16 +27,15 @@ class Bluetooth_notify:
         if(connected_device != ""):
             ReadingRanges.update_defaults_from_json(config_file)
             reading = ClimateReading.from_sensehat()
-            if(reading.outside_config_range(ReadingRanges) == ""):
-                PushBullet.loadToken(push_token)
-                PushBullet.notify(
-                    "Device {} is in range. ".format(connected_device) +
-                    "Current Temp is {}, ".format(reading.temperature) +
-                    "Humidity is {}".format(reading.humidity)
-                )
-                return True
-            print("Outside Config Ranges")
-            return False
+            error = reading.outside_config_range(ReadingRanges)
+            PushBullet.loadToken(push_token)
+            PushBullet.notify(
+                "Device {} is in range. ".format(connected_device) +
+                "Current Temp is {}, ".format(reading.temperature) +
+                "Humidity is {}. ".format(reading.humidity) +
+                error
+            )
+            return True
         print("Not Found Paired Device")
         return False
 
