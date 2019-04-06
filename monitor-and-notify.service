@@ -1,0 +1,17 @@
+[Unit]
+Description=My Bluetooth Notification Service
+After=multi-user.target
+Wants=minute-timer.timer
+
+[Timer]
+OnCalendar=*:0/1
+
+[Service]
+Type=idle
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/usr/bin/python3 /home/pi/monitorAndNotify.py > /home/pi/monitorAndNotify.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=minute-timer.target

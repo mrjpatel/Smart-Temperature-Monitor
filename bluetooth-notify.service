@@ -6,7 +6,7 @@ After=multi-user.target
 Type=idle
 User=pi
 WorkingDirectory=/home/pi
-ExecStart=/usr/bin/python3 /home/pi/sample.py > /home/pi/sample.log 2>&1
+ExecStart=/usr/bin/python3 /home/pi/greenhouse_bluetooth.py > /home/pi/greenhouse_bluetooth.log 2>&1
 
 [Install]
 WantedBy=multi-user.target
