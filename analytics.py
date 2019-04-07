@@ -13,8 +13,8 @@ class Analytics:
     def drawkdePlot(self):
         print("Drawing KDE Plot...")
         KDEPlot.plot_and_save(
-            data_set['temperature'],
-            data_set['humidity'],
+            self.data_set['temperature'],
+            self.data_set['humidity'],
             kdeFileName
         )
         print("Saved Plot as: {}".format(kdeFileName))
