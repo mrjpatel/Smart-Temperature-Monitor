@@ -12,10 +12,8 @@ class Database:
     def check_db_connection():
         try:
             con = sqlite3.connect('file:sensehat.db?mode=rw', uri=True)
-            print('Establishing a connection...')
             return con
         except sqlite3.OperationalError:
-            print('Creating tables...')
             Database.create_tables()
             con = sqlite3.connect('sensehat.db')
             return con
@@ -37,6 +35,7 @@ class Database:
             cur.execute("""CREATE TABLE NOTIFICATION_data(
                 timestamp DATETIME
                 )""")
+        print('Missing Tables, tables created!')
 
     """
     logs temperature and humidity data
@@ -49,6 +48,7 @@ class Database:
                         values((?), (?), (?))""", (timestamp, temp, humidity,))
         conn.commit()
         conn.close()
+        print('Logged data in DB')
 
     """
     logs notification data
@@ -61,6 +61,7 @@ class Database:
                         values((?))""", (timestamp,))
         conn.commit()
         conn.close()
+        print('Logged notification in DB')
 
     """
     Gets all the temperature and humidity data from database
@@ -73,6 +74,7 @@ class Database:
                         ORDER BY timestamp ASC""")
         sensehat_data = curs.fetchall()
         conn.close()
+        print('Retrieved all Data')
         return sensehat_data
 
     """
@@ -86,6 +88,7 @@ class Database:
                         ORDER BY timestamp ASC""")
         data = curs.fetchall()
         conn.close()
+        print('Retrieved all Temperature Data')
         return data
 
     """
@@ -99,6 +102,7 @@ class Database:
                         ORDER BY timestamp ASC""")
         data = curs.fetchall()
         conn.close()
+        print('Retrieved all Humidity Data')
         return data
 
     """
@@ -110,7 +114,7 @@ class Database:
         # gets the last notification sent from database
         last_notify = Database.get_last_notification()
         if last_notify is None:
-            print('we haven\'t sent a notification today')
+            print("Has not notified today!")
             return False
         else:
             # converts utc time to local time
@@ -120,10 +124,10 @@ class Database:
             current_date = Database.get_date_from_timestamp(str(time))
             print(local_date)
             if local_date == current_date:
-                print('Last notification in database match today')
+                print("Has notified today!")
                 return True
             else:
-                print('we haven\'t sent a notification today')
+                print("Has not notified today!")
                 return False
 
     @staticmethod
