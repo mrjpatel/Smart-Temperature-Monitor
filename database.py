@@ -69,7 +69,8 @@ class Database:
     def getAllSenseHatData():
         conn = Database.checkdbConnection()
         curs = conn.cursor()
-        curs.execute("SELECT * FROM SENSEHAT_data")
+        curs.execute("""SELECT * FROM SENSEHAT_data
+                        ORDER BY timestamp ASC""")
         senseHatData = curs.fetchall()
         conn.close()
         return senseHatData
