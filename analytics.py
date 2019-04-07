@@ -1,6 +1,7 @@
 from database import Database
 from lineGraph import LineGraph
 
+
 class Analytics:
     heatmap_file_name = "heatmap.png"
     histogram_file_name = "histogram.png"
