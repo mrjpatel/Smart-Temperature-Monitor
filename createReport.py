@@ -2,7 +2,6 @@ from database import Database
 from readingRanges import ReadingRanges
 from climateReading import ClimateReading
 import csv
-import datetime
 
 
 class CreateReport:
@@ -96,19 +95,19 @@ class CreateReport:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writeheader()
             for d in data:
-                print(d[0])
-                print(d[1])
                 writer.writerow({'Date': d[0], 'Status': str(d[1])})
 
-    def generate_report(self):
+    def generate_report(self, report_file_name):
+        print("Generating " + report_file_name + " file ...")
         temp_hum_data_list = self.get_database_data()
         report_list = self.get_all_status(temp_hum_data_list)
         self.generate_csv_file("report.csv", report_list)
+        print("Successfully generated: " + report_file_name)
 
 
 def main():
     report = CreateReport("config.json")
-    report.generate_report()
+    report.generate_report("report.csv")
 
 if __name__ == '__main__':
     main()
