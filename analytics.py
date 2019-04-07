@@ -8,7 +8,7 @@ class Analytics:
 
     def __init__(self):
         # TODO get DB Data
-        self.data_set = data_set
+        self.data_set = Database.getAllSenseHatData
 
     def drawkdePlot(self):
         print("Drawing KDE Plot...")
