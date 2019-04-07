@@ -132,7 +132,7 @@ class Database:
             return False
         else:
             # converts utc time to local time
-            local_timestamp = Database.get_local_time(last_notify)
+            local_timestamp = Database.get_local_time(last_notify[0])
             # convert local timestamp to local date
             local_date = Database.get_date_from_timestamp(local_timestamp[0])
             current_date = Database.get_date_from_timestamp(str(time))

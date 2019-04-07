@@ -12,7 +12,7 @@ Graph 1: Heat Map (Temperature vs Humidity)
 -------------------------------------------
 Graph 2: 
 -------------------------------------------
-- Why we chose this graph type
-- What we are plotting
-- Which library we are using
-- advantages/disadvantages,simplicity/complexity, flexibility/configurations, anything you may think is necessary.
+- We have chosen this graph so that we can see the relationship between Temperature over time as it is easier to analyse trends in tempearture over time from plots
+- We are plotting tempearture vs time graph. This shows us trend of tempearture over given time
+- We use Matplotlib library for this graph
+- Advantages of using this library is that it was very simple and easy to use and has support for rasberry pi. The configuration was easy and there were alot of ways we can visualse data.
