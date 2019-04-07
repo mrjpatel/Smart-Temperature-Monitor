@@ -57,8 +57,8 @@ class CreateReport:
     Geneartes status for a single day
     """
     def generate_day_status(self, date, temp, humidity, range):
-        min_error = " "
-        max_error = " "
+        min_error = ""
+        max_error = ""
         if len(temp) > 0 and len(humidity) > 0:
             temp_max_value = max(temp)
             temp_min_value = min(temp)
