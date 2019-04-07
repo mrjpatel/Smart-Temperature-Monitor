@@ -10,20 +10,8 @@ class MonitorAndNotify:
         PushBullet.load_token(access_token)
 
     def run(self):
-        print("Default: MinTemp: {} MaxTemp: {} MinHum: {} MaxHum: {}".format(
-            ReadingRanges.min_temperature,
-            ReadingRanges.max_temperature,
-            ReadingRanges.min_humidity,
-            ReadingRanges.max_humidity))
-
         ReadingRanges.update_defaults_from_json(self.range_config)
         current_reading = ClimateReading.from_sensehat()
-
-        print("MinTemp: {} MaxTemp: {} MinHum: {} MaxHum: {}".format(
-            ReadingRanges.min_temperature,
-            ReadingRanges.max_temperature,
-            ReadingRanges.min_humidity,
-            ReadingRanges.max_humidity))
 
         Database.log_temp_hum_data(
             current_reading.current_date_time,

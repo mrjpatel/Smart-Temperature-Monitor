@@ -114,6 +114,7 @@ class Database:
         # gets the last notification sent from database
         last_notify = Database.get_last_notification()
         if last_notify is None:
+            print("Has not notified today!")
             return False
         else:
             # converts utc time to local time
@@ -123,8 +124,10 @@ class Database:
             current_date = Database.get_date_from_timestamp(str(time))
             print(local_date)
             if local_date == current_date:
+                print("Has notified today!")
                 return True
             else:
+                print("Has not notified today!")
                 return False
 
     @staticmethod
