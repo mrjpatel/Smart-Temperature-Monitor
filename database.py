@@ -1,6 +1,6 @@
 import sqlite3
 from urllib.request import pathname2url
-import datetime
+from datetime import datetime, timezone
 
 
 class Database:
@@ -136,7 +136,6 @@ class Database:
             # convert local timestamp to local date
             local_date = Database.get_date_from_timestamp(local_timestamp[0])
             current_date = Database.get_date_from_timestamp(str(time))
-            print(local_date)
             if local_date == current_date:
                 print("Has notified today!")
                 return True
@@ -176,5 +175,6 @@ class Database:
 
     @staticmethod
     def get_local_time(timestamp):
-        # create a conversion that converts utc to local time
-        return timestamp
+        timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f')
+        localtime = timestamp.replace(tzinfo=timezone.utc).astimezone(tz=None)
+        return localtime.strftime('%Y-%m-%d %H:%M:%S.%f')
