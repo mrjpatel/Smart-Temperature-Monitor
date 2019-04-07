@@ -71,9 +71,9 @@ class Database:
         curs = conn.cursor()
         curs.execute("""SELECT * FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
-        senseHatData = curs.fetchall()
+        sensehat_data = curs.fetchall()
         conn.close()
-        return senseHatData
+        return sensehat_data
 
     """
     Gets all the temperature data from database
@@ -108,18 +108,18 @@ class Database:
     @staticmethod
     def has_notified(time):
         # gets the last notification sent from database
-        lastNotify = Database.get_last_notification()
-        if lastNotify is None:
+        last_notify = Database.get_last_notification()
+        if last_notify is None:
             print('we haven\'t sent a notification today')
             return False
         else:
             # converts utc time to local time
-            localtimestamp = Database.get_local_time(lastNotify)
+            local_timestamp = Database.get_local_time(last_notify)
             # convert local timestamp to local date
-            localDate = Database.get_date_from_timestamp(localtimestamp[0])
-            currentDate = Database.get_date_from_timestamp(str(time))
-            print(localDate)
-            if localDate == currentDate:
+            local_date = Database.get_date_from_timestamp(local_timestamp[0])
+            current_date = Database.get_date_from_timestamp(str(time))
+            print(local_date)
+            if local_date == current_date:
                 print('Last notification in database match today')
                 return True
             else:
