@@ -72,12 +72,15 @@ class CreateReport:
             if min_error.startswith("Temp") or min_error.startswith("Hum"):
                 min_error = "BAD: " + min_error
 
-            max_reading = ClimateReading(date, temp_max_value, hum_max_value)
-            max_error = max_reading.outside_config_range(range)
-            if max_error.startswith("Temp") or max_error.startswith("Hum"):
-                max_error = "BAD: " + max_error
+            if temp_max_value != temp_min_value or 
+            hum_min_value != hum_max_value:
+                max_reading = ClimateReading(
+                    date, temp_max_value, hum_max_value)
+                max_error = max_reading.outside_config_range(range)
+                if max_error.startswith("Temp") or max_error.startswith("Hum"):
+                    max_error = "BAD: " + max_error
 
-        if min_error.startswith("BAD"):
+        if max_error.startswith("BAD"):
             error = min_error + max_error.split("BAD: ", 1)[1]
         else:
             error = min_error + max_error
