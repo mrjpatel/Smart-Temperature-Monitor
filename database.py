@@ -9,14 +9,14 @@ class Database:
     check if the database exsits already
     """
     @staticmethod
-    def checkdbConnection():
+    def check_db_connection():
         try:
             con = sqlite3.connect('file:sensehat.db?mode=rw', uri=True)
             print('Establishing a connection...')
             return con
         except sqlite3.OperationalError:
             print('Creating tables...')
-            Database.createTables()
+            Database.create_tables()
             con = sqlite3.connect('sensehat.db')
             return con
 
@@ -24,7 +24,7 @@ class Database:
     creates tables if the database doesn't exist
     """
     @staticmethod
-    def createTables():
+    def create_tables():
         con = sqlite3.connect('sensehat.db')
         with con:
             cur = con.cursor()
@@ -42,8 +42,8 @@ class Database:
     logs temperature and humidity data
     """
     @staticmethod
-    def logTempHumData(timestamp, temp, humidity):
-        conn = Database.checkdbConnection()
+    def log_temp_hum_data(timestamp, temp, humidity):
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO SENSEHAT_data
                         values((?), (?), (?))""", (timestamp, temp, humidity,))
@@ -54,8 +54,8 @@ class Database:
     logs notification data
     """
     @staticmethod
-    def logNotificationData(timestamp):
-        conn = Database.checkdbConnection()
+    def log_notification_data(timestamp):
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO NOTIFICATION_data
                         values((?))""", (timestamp,))
@@ -66,8 +66,8 @@ class Database:
     Gets all the temperature and humidity data from database
     """
     @staticmethod
-    def getAllSenseHatData():
-        conn = Database.checkdbConnection()
+    def get_all_sensehat_data():
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
@@ -80,7 +80,7 @@ class Database:
     """
     @staticmethod
     def get_all_temperature_data():
-        conn = Database.checkdbConnection()
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT temp FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
@@ -93,7 +93,7 @@ class Database:
     """
     @staticmethod
     def get_all_humidity_data():
-        conn = Database.checkdbConnection()
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT humidity FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
@@ -106,18 +106,18 @@ class Database:
     (date format '2019-03-25')
     """
     @staticmethod
-    def hasNotified(time):
+    def has_notified(time):
         # gets the last notification sent from database
-        lastNotify = Database.getLastNotification()
+        lastNotify = Database.get_last_notification()
         if lastNotify is None:
             print('we haven\'t sent a notification today')
             return False
         else:
             # converts utc time to local time
-            localtimestamp = Database.getLocalTime(lastNotify)
+            localtimestamp = Database.get_local_time(lastNotify)
             # convert local timestamp to local date
-            localDate = Database.getDateFromTimestamp(localtimestamp[0])
-            currentDate = Database.getDateFromTimestamp(str(time))
+            localDate = Database.get_date_from_timestamp(localtimestamp[0])
+            currentDate = Database.get_date_from_timestamp(str(time))
             print(localDate)
             if localDate == currentDate:
                 print('Last notification in database match today')
@@ -127,9 +127,9 @@ class Database:
                 return False
 
     @staticmethod
-    def getLastNotification():
-        if not Database.isNotificationDBEmpty():
-            conn = Database.checkdbConnection()
+    def get_last_notification():
+        if not Database.is_notification_db_empty():
+            conn = Database.check_db_connection()
             curs = conn.cursor()
             curs.execute("""SELECT * FROM NOTIFICATION_data
                             ORDER BY timestamp DESC LIMIT 1
@@ -141,8 +141,8 @@ class Database:
             return None
 
     @staticmethod
-    def isNotificationDBEmpty():
-        conn = Database.checkdbConnection()
+    def is_notification_db_empty():
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM NOTIFICATION_data""")
         data = curs.fetchone()
@@ -153,10 +153,10 @@ class Database:
             return False
 
     @staticmethod
-    def getDateFromTimestamp(timestamp):
+    def get_date_from_timestamp(timestamp):
         return timestamp.split(' ', 1)[0]
 
     @staticmethod
-    def getLocalTime(timestamp):
+    def get_local_time(timestamp):
         # create a conversion that converts utc to local time
         return timestamp
