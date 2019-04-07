@@ -98,7 +98,7 @@ class Database:
     def get_all_timestamp_data():
         conn = Database.check_db_connection()
         curs = conn.cursor()
-        curs.execute("""SELECT timestamo FROM SENSEHAT_data
+        curs.execute("""SELECT timestamp FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
         data = curs.fetchall()
         conn.close()

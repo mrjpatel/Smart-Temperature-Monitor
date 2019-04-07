@@ -1,6 +1,5 @@
-from kdePlot import KDEPlot
 from database import Database
-
+from lineGraph import LineGraph
 
 class Analytics:
     heatmap_file_name = "heatmap.png"
@@ -38,7 +37,8 @@ class Analytics:
         humidities = []
 
         for item in list_timestamp:
-            timestamp.extend(list(item))
+            timestamp.append(Database.get_date_from_timestamp(
+                Database.get_local_time(item[0])))
         for item in list_temps:
             temps.extend(list(item))
         for item in list_humidities:
@@ -48,14 +48,14 @@ class Analytics:
             timestamp,
             temps,
             humidities,
-            self.kdeFileName
+            self.histogram_file_name
         )
         print("Saved Histogram as: {}".format(self.histogram_file_name))
         pass
 
     def draw_plots(self):
         print("Drawing Plots...")
-        self.draw_heatmap()
+        # self.draw_heatmap()
         self.drawHistogram()
 
 
