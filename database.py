@@ -76,6 +76,19 @@ class Database:
         return senseHatData
 
     """
+    Gets all the temperature and humidity data from database
+    """
+    @staticmethod
+    def get_all_temperature_data():
+        conn = Database.checkdbConnection()
+        curs = conn.cursor()
+        curs.execute("""SELECT temp FROM SENSEHAT_data
+                        ORDER BY timestamp ASC""")
+        senseHatData = curs.fetchall()
+        conn.close()
+        return senseHatData
+
+    """
     checks if the notification has been sent already for a given date
     (date format '2019-03-25')
     """
