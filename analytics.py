@@ -1,6 +1,6 @@
 from kdePlot import KDEPlot
 from database import Database
-from lineGraph import LineGraph
+from scatterPlot import ScatterPlot
 
 
 class Analytics:
@@ -47,7 +47,7 @@ class Analytics:
         for item in list_temps:
             temps.extend(list(item))
 
-        LineGraph.plot_and_save(
+        ScatterPlot.plot_and_save(
             timestamp,
             temps,
             self.scatter_plot_file_name
