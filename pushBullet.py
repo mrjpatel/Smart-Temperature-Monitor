@@ -21,3 +21,4 @@ class PushBullet:
             data=data,
             auth=(cls.token, '')
         )
+        print("Sent Notification via PushBullet")

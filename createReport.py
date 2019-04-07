@@ -22,17 +22,17 @@ class CreateReport:
     Gets data from database and segregates them into same days list
     """
     def get_database_data(self):
-        rows = Database.getAllSenseHatData()
+        rows = Database.get_all_sensehat_data()
         currentDate = ''
         allDays = []
         day = []
         for row in rows:
-            if currentDate == Database.getDateFromTimestamp(
-               Database.getLocalTime(row[0])):
+            if currentDate == Database.get_date_from_timestamp(
+               Database.get_local_time(row[0])):
                 day.append(row)
             else:
-                currentDate = Database.getDateFromTimestamp(
-                    Database.getLocalTime(row[0]))
+                currentDate = Database.get_date_from_timestamp(
+                    Database.get_local_time(row[0]))
                 allDays.append(day)
                 day = []
                 day.append(row)
@@ -53,7 +53,7 @@ class CreateReport:
                 temp.append(dayData[1])
                 humidity.append(dayData[2])
 
-            date = Database.getDateFromTimestamp(date)
+            date = Database.get_date_from_timestamp(date)
             status = self.generate_day_status(
                 date, temp, humidity, ReadingRanges)
             if len(date) > 0:

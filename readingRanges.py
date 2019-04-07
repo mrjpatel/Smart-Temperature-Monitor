@@ -2,10 +2,10 @@ import json
 
 
 class ReadingRanges:
-    min_temperature = 15
-    max_temperature = 25
-    min_humidity = 45
-    max_humidity = 55
+    min_temperature = 20
+    max_temperature = 30
+    min_humidity = 50
+    max_humidity = 60
 
     def __init__(
             self,
@@ -28,6 +28,7 @@ class ReadingRanges:
             cls.max_temperature = data["max_temperature"]
             cls.min_humidity = data["min_humidity"]
             cls.max_humidity = data["max_humidity"]
+        print("Updated Defaults from {}".format(json_file_path))
 
     @classmethod
     def from_json(cls, json_file_path):

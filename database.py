@@ -9,14 +9,12 @@ class Database:
     check if the database exsits already
     """
     @staticmethod
-    def checkdbConnection():
+    def check_db_connection():
         try:
             con = sqlite3.connect('file:sensehat.db?mode=rw', uri=True)
-            print('Establishing a connection...')
             return con
         except sqlite3.OperationalError:
-            print('Creating tables...')
-            Database.createTables()
+            Database.create_tables()
             con = sqlite3.connect('sensehat.db')
             return con
 
@@ -24,7 +22,7 @@ class Database:
     creates tables if the database doesn't exist
     """
     @staticmethod
-    def createTables():
+    def create_tables():
         con = sqlite3.connect('sensehat.db')
         with con:
             cur = con.cursor()
@@ -37,55 +35,60 @@ class Database:
             cur.execute("""CREATE TABLE NOTIFICATION_data(
                 timestamp DATETIME
                 )""")
+        print('Missing Tables, tables created!')
 
     """
     logs temperature and humidity data
     """
     @staticmethod
-    def logTempHumData(timestamp, temp, humidity):
-        conn = Database.checkdbConnection()
+    def log_temp_hum_data(timestamp, temp, humidity):
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO SENSEHAT_data
                         values((?), (?), (?))""", (timestamp, temp, humidity,))
         conn.commit()
         conn.close()
+        print('Logged data in DB')
 
     """
     logs notification data
     """
     @staticmethod
-    def logNotificationData(timestamp):
-        conn = Database.checkdbConnection()
+    def log_notification_data(timestamp):
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""INSERT INTO NOTIFICATION_data
                         values((?))""", (timestamp,))
         conn.commit()
         conn.close()
+        print('Logged notification in DB')
 
     """
     Gets all the temperature and humidity data from database
     """
     @staticmethod
-    def getAllSenseHatData():
-        conn = Database.checkdbConnection()
+    def get_all_sensehat_data():
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
-        senseHatData = curs.fetchall()
+        sensehat_data = curs.fetchall()
         conn.close()
-        return senseHatData
+        print('Retrieved all Data')
+        return sensehat_data
 
     """
     Gets all the temperature data from database
     """
     @staticmethod
     def get_all_temperature_data():
-        conn = Database.checkdbConnection()
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT temp FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
         data = curs.fetchall()
         conn.close()
+        print('Retrieved all Temperature Data')
         return data
 
     """
@@ -93,12 +96,13 @@ class Database:
     """
     @staticmethod
     def get_all_humidity_data():
-        conn = Database.checkdbConnection()
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT humidity FROM SENSEHAT_data
                         ORDER BY timestamp ASC""")
         data = curs.fetchall()
         conn.close()
+        print('Retrieved all Humidity Data')
         return data
 
     """
@@ -106,30 +110,30 @@ class Database:
     (date format '2019-03-25')
     """
     @staticmethod
-    def hasNotified(time):
+    def has_notified(time):
         # gets the last notification sent from database
-        lastNotify = Database.getLastNotification()
-        if lastNotify is None:
-            print('we haven\'t sent a notification today')
+        last_notify = Database.get_last_notification()
+        if last_notify is None:
+            print("Has not notified today!")
             return False
         else:
             # converts utc time to local time
-            localtimestamp = Database.getLocalTime(lastNotify)
+            local_timestamp = Database.get_local_time(last_notify)
             # convert local timestamp to local date
-            localDate = Database.getDateFromTimestamp(localtimestamp[0])
-            currentDate = Database.getDateFromTimestamp(str(time))
-            print(localDate)
-            if localDate == currentDate:
-                print('Last notification in database match today')
+            local_date = Database.get_date_from_timestamp(local_timestamp[0])
+            current_date = Database.get_date_from_timestamp(str(time))
+            print(local_date)
+            if local_date == current_date:
+                print("Has notified today!")
                 return True
             else:
-                print('we haven\'t sent a notification today')
+                print("Has not notified today!")
                 return False
 
     @staticmethod
-    def getLastNotification():
-        if not Database.isNotificationDBEmpty():
-            conn = Database.checkdbConnection()
+    def get_last_notification():
+        if not Database.is_notification_db_empty():
+            conn = Database.check_db_connection()
             curs = conn.cursor()
             curs.execute("""SELECT * FROM NOTIFICATION_data
                             ORDER BY timestamp DESC LIMIT 1
@@ -141,8 +145,8 @@ class Database:
             return None
 
     @staticmethod
-    def isNotificationDBEmpty():
-        conn = Database.checkdbConnection()
+    def is_notification_db_empty():
+        conn = Database.check_db_connection()
         curs = conn.cursor()
         curs.execute("""SELECT * FROM NOTIFICATION_data""")
         data = curs.fetchone()
@@ -153,10 +157,10 @@ class Database:
             return False
 
     @staticmethod
-    def getDateFromTimestamp(timestamp):
+    def get_date_from_timestamp(timestamp):
         return timestamp.split(' ', 1)[0]
 
     @staticmethod
-    def getLocalTime(timestamp):
+    def get_local_time(timestamp):
         # create a conversion that converts utc to local time
         return timestamp

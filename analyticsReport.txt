@@ -1,0 +1,18 @@
+### Analytics Report ###
+########################
+
+-------------------------------------------
+Graph 1: Heat Map (Temperature vs Humidity)
+-------------------------------------------
+- We have chosen this map so that we are able to identify trends and correlation between Temperature and Humidity in the current location that we are in. This provides insight into what kind of crops we can grow in this particular climate and the relation to Humidity that the Temperature has on it.
+- In the graph we are representing Temperature on the x axis and Humidity on the y axis.
+- For this graph we have used the Seaborn library.
+- The Seaborn library allows create high resolution complex graphs in colour. There is alot of flexability in Seaborn allowing you to create relational, categorical, distributional, regressional and matrix plots, as well as offering a range of style control, colour palettes and widgets. All these complex functions are great aside from the fact that it is not very easy to install on a raspberry pi. The Seaborn library has few dependancies but each need to be installed individually or it fails to install the library as it times out while installing.
+
+-------------------------------------------
+Graph 2: 
+-------------------------------------------
+- Why we chose this graph type
+- What we are plotting
+- Which library we are using
+- advantages/disadvantages,simplicity/complexity, flexibility/configurations, anything you may think is necessary.
