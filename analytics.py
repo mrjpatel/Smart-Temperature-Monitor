@@ -30,7 +30,26 @@ class Analytics:
 
     def drawHistogram(self):
         print("Drawing Histogram...")
+        list_timestamp = Database.get_all_timestamp_data()
+        list_temps = Database.get_all_temperature_data()
+        list_humidities = Database.get_all_humidity_data()
+        timestamp = []
+        temps = []
+        humidities = []
 
+        for item in list_timestamp:
+            timestamp.extend(list(item))
+        for item in list_temps:
+            temps.extend(list(item))
+        for item in list_humidities:
+            humidities.extend(list(item))
+
+        LineGraph.plot_and_save(
+            timestamp,
+            temps,
+            humidities,
+            self.kdeFileName
+        )
         print("Saved Histogram as: {}".format(self.histogram_file_name))
         pass
 
