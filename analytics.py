@@ -7,22 +7,31 @@ class Analytics:
     histogramFileName = "histogram.png"
 
     def __init__(self):
-        # TODO get DB Data
-        self.data_set = data_set
+        pass
 
     def drawkdePlot(self):
         print("Drawing KDE Plot...")
+        list_temps = Database.get_all_temperature_data()
+        list_humidities = Database.get_all_humidity_data()
+        temps = []
+        humidities = []
+
+        for item in list_temps:
+            temps.extend(list(item))
+        for item in list_humidities:
+            humidities.extend(list(item))
+
         KDEPlot.plot_and_save(
-            data_set['temperature'],
-            data_set['humidity'],
-            kdeFileName
+            temps,
+            humidities,
+            self.kdeFileName
         )
-        print("Saved Plot as: {}".format(kdeFileName))
+        print("Saved Plot as: {}".format(self.kdeFileName))
 
     def drawHistogram(self):
         print("Drawing Histogram...")
 
-        print("Saved Histogram as: {}".format(histogramFileName))
+        print("Saved Histogram as: {}".format(self.histogramFileName))
         pass
 
     def drawPlots(self):
