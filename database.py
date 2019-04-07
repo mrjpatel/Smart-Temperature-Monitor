@@ -162,4 +162,5 @@ class Database:
     @staticmethod
     def get_local_time(timestamp):
         timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f')
-        return timestamp.replace(tzinfo=timezone.utc).astimezone(tz=None)
+        localtime = timestamp.replace(tzinfo=timezone.utc).astimezone(tz=None)
+        return localtime.strftime("%d-%b-%Y (%H:%M:%S.%f)")
