@@ -20,7 +20,7 @@ class Analytics:
         for item in list_temps:
             temps.extend(list(item))
         for item in list_humidities:
-            humidities.insert(list(item))
+            humidities.extend(list(item))
 
         print("Temps:")
         print(*list_temps)
