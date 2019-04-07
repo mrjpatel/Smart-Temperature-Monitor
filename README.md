@@ -50,7 +50,7 @@ $ python3 monitorAndNotify.py
 This program works ideally when it is scheduled. This can be done via CRON on Raspberry Pi. The following script can be used to start the systemd scheduling.
 **Note: this script will restart your device for it to start**
 ```bash
-$ bash scheduleMonitorAndNotify.sh
+$ bash sudo scheduleMonitorAndNotify.sh
 ```
 
 ## Create Report
@@ -72,7 +72,7 @@ $ python3 greenhouse_bluetooth.py
 Run this script to enable this script on start up.
 **Note: this script will restart your device for it to start**
 ```bash
-$ bash runBluetoothOnStartUp.sh
+$ bash sudo runBluetoothOnStartUp.sh
 ```
 
 ## Analytics 
