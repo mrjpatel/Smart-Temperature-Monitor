@@ -19,7 +19,7 @@ class Analytics:
 
         for item in list_temps:
             print(item)
-            temp = item
+            temp = list(item)
             print(temp)
             temps.insert(temp)
         for item in list_humidities:
