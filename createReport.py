@@ -37,6 +37,7 @@ class CreateReport:
                 day = []
                 day.append(row)
         allDays.append(day)
+        print(*allDays)
         return allDays
 
     """
