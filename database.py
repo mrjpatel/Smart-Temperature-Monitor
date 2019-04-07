@@ -1,6 +1,6 @@
 import sqlite3
 from urllib.request import pathname2url
-import datetime
+from datetime import datetime, timezone
 
 
 class Database:
@@ -162,5 +162,5 @@ class Database:
 
     @staticmethod
     def get_local_time(timestamp):
-        # create a conversion that converts utc to local time
-        return timestamp
+        timestamp = datetime.datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f')
+        return timestamp.replace(tzinfo=timezone.utc).astimezone(tz=None)
