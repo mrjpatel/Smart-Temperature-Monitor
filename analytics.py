@@ -17,15 +17,12 @@ class Analytics:
         temps = []
         humidities = []
 
-        print(type(list_temps))
-        print(type(list_humidities))
-
-        for temp in list_temps:
-            print(type(temp))
-            temps.insert(temp[0])
-        for humidity in list_humidities:
-            print(type(humidity))
-            humidities.insert(humidity[0])
+        for item in list_temps:
+            temp, blank = item
+            temps.insert(temp)
+        for item in list_humidities:
+            humiditiy, blank = item
+            humidities.insert(humidity)
 
         print("Temps:")
         print(*list_temps)
