@@ -1,0 +1,17 @@
+[Unit]
+Description=My Monitor and Notify Service
+After=multi-user.target
+Wants=minute-timer.timer
+
+[Timer]
+OnCalendar=*:0/1
+
+[Service]
+Type=idle
+User=pi
+WorkingDirectory=/home/pi/default
+ExecStart=/usr/bin/python3 /home/pi/default/monitorAndNotify.py > /home/pi/default/monitorAndNotify.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=minute-timer.target

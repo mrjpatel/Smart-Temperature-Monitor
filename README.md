@@ -12,7 +12,8 @@ This project contains a small IoT application using Raspberry Pi and Sense HAT i
 ### Software Requirements
 - This code uses Python 3.5 or > Python 3.5
 - PushBullet Account ([https://www.pushbullet.com/](https://www.pushbullet.com/))
-- Python PyBluz module
+- Python PyBluz 
+- Python Seaborn
 
 # Installation of Prerequisites
 ### PushBullet
@@ -30,13 +31,20 @@ $ sudo apt-get install sense-hat
 $ sudo reboot
 ```
 
-### PyBluz Module
+### PyBluz
 Run the following commands on your Raspberry Pi
 ```bash
 $ sudo apt install bluetooth bluez blueman
 $ pip3 install pybluez
 $ sudo apt install bluez-tools
 ```
+
+### Seaborn
+Run the following commands on your Raspberry Pi
+```bash
+$ sudo pip3 install seaborn
+```
+
 # Programs
 ## Monitor and Notify
 #### Description
@@ -47,9 +55,10 @@ This program will record the current tempurature and humidity from the SenseHat,
 $ python3 monitorAndNotify.py
 ```
 #### Scheduling
-This program works ideally when it is scheduled. This can be done via CRON on Raspberry Pi. The following script can be used to start the cron scheduling.
+This program works ideally when it is scheduled. This can be done via CRON on Raspberry Pi. The following script can be used to start the systemd scheduling.
+**Note: this script will restart your device for it to start**
 ```bash
-$ bash startcron.sh
+$ bash sudo scheduleMonitorAndNotify.sh
 ```
 
 ## Create Report
@@ -69,8 +78,9 @@ $ python3 greenhouse_bluetooth.py
 ```
 #### Running on start up
 Run this script to enable this script on start up.
+**Note: this script will restart your device for it to start**
 ```bash
-$ bash runBluetoothOnStartUp.sh
+$ bash sudo runBluetoothOnStartUp.sh
 ```
 
 ## Analytics 
@@ -81,6 +91,6 @@ TBD
 $ python3 analytics.py
 ```
 #### Result
-
-#### Reasoning
-
+The result of this is:
+- Heat Map - (heatmap.png) which shows the distribution between temperature and humidity for all reading collected in the database
+- Other Map - desc

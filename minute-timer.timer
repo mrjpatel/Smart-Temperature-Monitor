@@ -1,0 +1,9 @@
+[Unit]
+Description=Minute Timer
+
+[Timer]
+OnCalendar=*:0/1
+Unit=minute-timer.target
+
+[Install]
+WantedBy=basic.target
