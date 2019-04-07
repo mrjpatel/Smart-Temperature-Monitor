@@ -28,7 +28,7 @@ class ClimateReading:
                 round(self.temperature, 1),
                 round((range.min_temperature - self.temperature), 1))
         if self.temperature > range.max_temperature:
-            rstr += "Temp: {}*C, {} *C Above the maximum temperature. ".format(
+            rstr += "Temp: {}*C, {}*C Above the maximum temperature. ".format(
                 round(self.temperature, 1),
                 round((self.temperature - range.max_temperature), 1))
         if self.humidity < range.min_humidity:
