@@ -13,8 +13,13 @@ class Analytics:
         print("Drawing KDE Plot...")
         temps = Database.get_all_temperature_data()
         humidities = Database.get_all_humidity_data()
-        print("Temps: {}".format(*temps))
-        print("Humidities: {}".format(*humidities))
+        print("All Data: ")
+        print(*Database.getAllSenseHatData())
+
+        print("Temps:")
+        print(*temps)
+        print("Humidities:")
+        print(*humidities)
         KDEPlot.plot_and_save(
             temps,
             humidities,
