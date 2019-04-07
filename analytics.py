@@ -3,14 +3,14 @@ from database import Database
 
 
 class Analytics:
-    kdeFileName = "kdePlot.png"
-    histogramFileName = "histogram.png"
+    heatmap_file_name = "heatmap.png"
+    histogram_file_name = "histogram.png"
 
     def __init__(self):
         pass
 
-    def drawkdePlot(self):
-        print("Drawing KDE Plot...")
+    def draw_heatmap(self):
+        print("Drawing HeatMap...")
         list_temps = Database.get_all_temperature_data()
         list_humidities = Database.get_all_humidity_data()
         temps = []
@@ -24,25 +24,25 @@ class Analytics:
         KDEPlot.plot_and_save(
             temps,
             humidities,
-            self.kdeFileName
+            self.heatmap_file_name
         )
-        print("Saved Plot as: {}".format(self.kdeFileName))
+        print("Saved Plot as: {}".format(self.heatmap_file_name))
 
     def drawHistogram(self):
         print("Drawing Histogram...")
 
-        print("Saved Histogram as: {}".format(self.histogramFileName))
+        print("Saved Histogram as: {}".format(self.histogram_file_name))
         pass
 
-    def drawPlots(self):
+    def draw_plots(self):
         print("Drawing Plots...")
-        self.drawkdePlot()
+        self.draw_heatmap()
         self.drawHistogram()
 
 
 def main():
     analytics = Analytics()
-    analytics.drawPlots()
+    analytics.draw_plots()
 
 if __name__ == '__main__':
     main()
