@@ -38,8 +38,7 @@ class Analytics:
         humidities = []
 
         for item in list_timestamp:
-            timestamp.append(Database.get_date_from_timestamp(
-                Database.get_local_time(item[0])))
+            timestamp.append(Database.get_local_time(item[0]))
         for item in list_temps:
             temps.extend(list(item))
         for item in list_humidities:

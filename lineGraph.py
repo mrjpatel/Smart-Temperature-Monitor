@@ -3,27 +3,24 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import dates
-from matplotlib.dates import MONDAY, RRuleLocator, rrulewrapper, WeekdayLocator, DayLocator
+from matplotlib.dates import DayLocator
 
 
 class LineGraph:
     @staticmethod
     def plot_and_save(time_data, temp_data_set, hum_data_set, file_name):
-        converted_dates = list(map(datetime.datetime.strptime, time_data, len(time_data)*['%Y-%m-%d']))
-        # rule = rrulewrapper(MO, TU, WE, TH, FR, SA, SU, byeaster=1, interval=1)
-        # loc = WeekdayLocator(byweekday=MO,TU, WE, TH, FR, SA, SU, tz=tz)
-        mondays = WeekdayLocator(MONDAY)        # major ticks on the mondays
-        alldays = DayLocator()              	# minor ticks on the days
-        x_axis = converted_dates
-        formatter = dates.DateFormatter('%Y-%m-%d')
+        converted_dates = []
+        for timestamp in time_data:
+            converted_dates.append(datetime.datetime.strptime(
+                timestamp, '%Y-%m-%d %H:%M:%S.%f'))
         fig, ax = plt.subplots()
-        plt.scatter(x_axis, temp_data_set)
-        ax.xaxis.set_major_locator(alldays)
-        ax.xaxis.set_minor_locator(alldays)
+        formatter = dates.DateFormatter('%Y-%m-%d')
+        plt.plot_date(converted_dates, temp_data_set, 'b-')
+        ax.xaxis.set_major_locator(DayLocator())
         ax.xaxis.set_major_formatter(formatter)
         ax.autoscale_view()
-        plt.gcf().autofmt_xdate(rotation=25)
-        ax.set_title('Temparture comparision for')
+        plt.gcf().autofmt_xdate()
+        ax.set_title('Temparture Trend comparison')
         plt.xlabel('Date')
         plt.ylabel('Temperature')
         plt.savefig(file_name)
