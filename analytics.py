@@ -1,10 +1,11 @@
+from kdePlot import KDEPlot
 from database import Database
 from lineGraph import LineGraph
 
 
 class Analytics:
     heatmap_file_name = "heatmap.png"
-    histogram_file_name = "histogram.png"
+    scatter_plot_file_name = "scatterplot.png"
 
     def __init__(self):
         pass
@@ -28,35 +29,29 @@ class Analytics:
         )
         print("Saved Plot as: {}".format(self.heatmap_file_name))
 
-    def drawHistogram(self):
-        print("Drawing Histogram...")
+    def draw_scatter_plot(self):
+        print("Drawing Scatter Plot...")
         list_timestamp = Database.get_all_timestamp_data()
         list_temps = Database.get_all_temperature_data()
-        list_humidities = Database.get_all_humidity_data()
         timestamp = []
         temps = []
-        humidities = []
 
         for item in list_timestamp:
             timestamp.append(Database.get_local_time(item[0]))
         for item in list_temps:
             temps.extend(list(item))
-        for item in list_humidities:
-            humidities.extend(list(item))
 
         LineGraph.plot_and_save(
             timestamp,
             temps,
-            humidities,
-            self.histogram_file_name
+            self.scatter_plot_file_name
         )
-        print("Saved Histogram as: {}".format(self.histogram_file_name))
-        pass
+        print("Saved Scatter Plot as: {}".format(self.scatter_plot_file_name))
 
     def draw_plots(self):
         print("Drawing Plots...")
-        # self.draw_heatmap()
-        self.drawHistogram()
+        self.draw_heatmap()
+        self.draw_scatter_plot()
 
 
 def main():
