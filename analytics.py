@@ -10,6 +10,9 @@ class Analytics:
     def __init__(self):
         pass
 
+    """
+    Draws the heatmap
+    """
     def draw_heatmap(self):
         print("Drawing HeatMap...")
         list_temps = Database.get_all_temperature_data()
@@ -29,6 +32,9 @@ class Analytics:
         )
         print("Saved Plot as: {}".format(self.heatmap_file_name))
 
+    """
+    Draws scatter plot
+    """
     def draw_scatter_plot(self):
         print("Drawing Scatter Plot...")
         list_timestamp = Database.get_all_timestamp_data()
@@ -48,6 +54,9 @@ class Analytics:
         )
         print("Saved Scatter Plot as: {}".format(self.scatter_plot_file_name))
 
+    """
+    excutes plot drawing functions
+    """
     def draw_plots(self):
         print("Drawing Plots...")
         self.draw_heatmap()
