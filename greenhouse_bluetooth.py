@@ -7,8 +7,21 @@ from climateReading import ClimateReading
 from readingRanges import ReadingRanges
 from pushBullet import PushBullet
 
+"""
+This file is for the bluetooth notify funtionality
+It run untill exited scanning devices in range.
+If devices found is same as the paired devices,
+it will send a notificaiton via PushBullet
+"""
+
 
 class Bluetooth_notify:
+    """
+    This run function will start the program
+    Params: config file name and push notificaiton token file name
+    It will sleep for 10 mins if it sends a notification or take a 10 second
+    pause between scans
+    """
     @staticmethod
     def run(config_file, push_token):
         while True:
@@ -19,6 +32,10 @@ class Bluetooth_notify:
                 print("Not Notified. Sleeping 10 seconds...")
                 time.sleep(10)
 
+    """
+    This method does the orchastration between the other static methods and
+    sends the notification via PushBullet
+    """
     @staticmethod
     def notify_about_weather(config_file, push_token):
         paired_list = Bluetooth_notify.get_paired_list()
@@ -39,6 +56,9 @@ class Bluetooth_notify:
         print("Not Found Paired Device")
         return False
 
+    """
+    This method returns a list of paired devices
+    """
     @staticmethod
     def get_paired_list():
         p = sp.Popen(
@@ -57,6 +77,10 @@ class Bluetooth_notify:
         paired_list.pop(0)
         return paired_list
 
+    """
+    This method checks if the paried device is within range
+    Params: list of paired devices
+    """
     @staticmethod
     def is_in_range(paired_list):
         print("Scanning...")
@@ -67,6 +91,10 @@ class Bluetooth_notify:
                 print("Found paired device with mac-address: " + macAddress)
                 return macAddress
         return ""
+
+"""
+Main method executed at run of this file
+"""
 
 
 def main():
