@@ -83,6 +83,6 @@ TBD
 $ python3 analytics.py
 ```
 #### Result
-
-#### Reasoning
-
+The result of this is:
+- Heat Map - (heatmap.png) which shows the distribution between temperature and humidity for all reading collected in the database
+- Other Map - desc
