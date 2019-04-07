@@ -90,10 +90,9 @@ class CreateReport:
         else:
             error = (min_error + max_error).strip()
 
-        if error.startswith("Temp") or error.startswith("Hum"):
+        if error != "":
             return "BAD: " + error
-        else:
-            return "OK"
+        return "OK"
 
     """
     Genetaes a csv file for the given data
