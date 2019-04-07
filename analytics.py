@@ -22,14 +22,9 @@ class Analytics:
         for item in list_humidities:
             humidities.extend(list(item))
 
-        print("Temps:")
-        print(*list_temps)
-        print("Humidities:")
-        print(*list_humidities)
-
         KDEPlot.plot_and_save(
-            temps,
-            humidities,
+            list(list_temps),
+            list(list_humidities),
             self.kdeFileName
         )
         print("Saved Plot as: {}".format(self.kdeFileName))
