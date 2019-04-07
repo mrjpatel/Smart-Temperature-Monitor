@@ -24,7 +24,8 @@ class Analytics:
         KDEPlot.plot_and_save(
             temps,
             humidities,
-            self.kdeFileName
+            self.kdeFileName,
+            legend=True
         )
         print("Saved Plot as: {}".format(self.kdeFileName))
 
