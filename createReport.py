@@ -5,9 +5,6 @@ import csv
 
 
 class CreateReport:
-    def __init__(self, range_config):
-        self.range_config = range_config
-        ReadingRanges.update_defaults_from_json(self.range_config)
 
     """
     Gets data from database and segregates them into same days list
@@ -72,8 +69,8 @@ class CreateReport:
             if min_error.startswith("Temp") or min_error.startswith("Hum"):
                 min_error = "BAD: " + min_error
 
-            if temp_max_value != temp_min_value or 
-            hum_min_value != hum_max_value:
+            if (temp_max_value != temp_min_value or
+                    hum_min_value != hum_max_value):
                 max_reading = ClimateReading(
                     date, temp_max_value, hum_max_value)
                 max_error = max_reading.outside_config_range(range)
@@ -100,17 +97,20 @@ class CreateReport:
             for d in data:
                 writer.writerow({'Date': d[0], 'Status': str(d[1])})
 
-    def generate_report(self, report_file_name):
+    def generate_report(self, range_config_file, report_file_name):
+        ReadingRanges.update_defaults_from_json(range_config_file)
         print("Generating " + report_file_name + " file ...")
         temp_hum_data_list = self.get_database_data()
         report_list = self.get_all_status(temp_hum_data_list)
-        self.generate_csv_file("report.csv", report_list)
+        self.generate_csv_file(report_file_name, report_list)
         print("Successfully generated: " + report_file_name)
 
 
 def main():
-    report = CreateReport("config.json")
-    report.generate_report("report.csv")
+    range_config_file = "config.json"
+    report_file = "report.csv"
+    report = CreateReport()
+    report.generate_report(range_config_file, report_file)
 
 if __name__ == '__main__':
     main()
