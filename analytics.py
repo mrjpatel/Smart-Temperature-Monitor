@@ -3,8 +3,8 @@ from database import Database
 
 
 class Analytics:
-    kdeFileName = "heatmap.png"
-    histogramFileName = "histogram.png"
+    heatmap_file_name = "heatmap.png"
+    histogram_file_name = "histogram.png"
 
     def __init__(self):
         pass
@@ -24,14 +24,14 @@ class Analytics:
         KDEPlot.plot_and_save(
             temps,
             humidities,
-            self.kdeFileName
+            self.heatmap_file_name
         )
-        print("Saved Plot as: {}".format(self.kdeFileName))
+        print("Saved Plot as: {}".format(self.heatmap_file_name))
 
     def drawHistogram(self):
         print("Drawing Histogram...")
 
-        print("Saved Histogram as: {}".format(self.histogramFileName))
+        print("Saved Histogram as: {}".format(self.histogram_file_name))
         pass
 
     def draw_plots(self):
