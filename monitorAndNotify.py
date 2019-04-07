@@ -25,7 +25,7 @@ class MonitorAndNotify:
             ReadingRanges.min_humidity,
             ReadingRanges.max_humidity))
 
-        Database.logTempHumData(
+        Database.log_temp_hum_data(
             current_reading.current_date_time,
             round(current_reading.temperature, 1),
             round(current_reading.humidity, 1)
@@ -35,9 +35,9 @@ class MonitorAndNotify:
         if error != "":
             print("Outside Configured Ranages!")
             print("Error: {}".format(error))
-            if not Database.hasNotified(current_reading.current_date_time):
+            if not Database.has_notified(current_reading.current_date_time):
                 PushBullet.notify(error)
-                Database.logNotificationData(
+                Database.log_notification_data(
                     current_reading.current_date_time)
 
 
