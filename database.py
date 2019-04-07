@@ -88,7 +88,6 @@ class Database:
         conn.close()
         return data
 
-    
     """
     Gets all the humidity data from database
     """
@@ -101,7 +100,6 @@ class Database:
         data = curs.fetchall()
         conn.close()
         return data
-
 
     """
     checks if the notification has been sent already for a given date
