@@ -18,6 +18,7 @@ class Analytics:
         humidities = []
 
         for item in list_temps:
+            print(item)
             temp, blank = item
             temps.insert(temp)
         for item in list_humidities:
