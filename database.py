@@ -92,6 +92,20 @@ class Database:
         return data
 
     """
+    Gets all the timestamp data from database
+    """
+    @staticmethod
+    def get_all_timestamp_data():
+        conn = Database.check_db_connection()
+        curs = conn.cursor()
+        curs.execute("""SELECT timestamp FROM SENSEHAT_data
+                        ORDER BY timestamp ASC""")
+        data = curs.fetchall()
+        conn.close()
+        print('Retrieved all timestamp Data')
+        return data
+
+    """
     Gets all the humidity data from database
     """
     @staticmethod
