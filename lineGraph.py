@@ -1,17 +1,14 @@
 import datetime
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib import dates
 from matplotlib.dates import DayLocator
 
 
 class LineGraph:
-    """
-    Takes temperature data and plots the graph against time data
-    """
     @staticmethod
-    def plot_and_save(time_data, temp_data_set, file_name):
+    def plot_and_save(time_data, temp_data_set, hum_data_set, file_name):
+        matplotlib.pyplot.switch_backend('Agg')
         converted_dates = []
         for timestamp in time_data:
             converted_dates.append(datetime.datetime.strptime(
