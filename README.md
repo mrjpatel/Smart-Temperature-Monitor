@@ -12,7 +12,8 @@ This project contains a small IoT application using Raspberry Pi and Sense HAT i
 ### Software Requirements
 - This code uses Python 3.5 or > Python 3.5
 - PushBullet Account ([https://www.pushbullet.com/](https://www.pushbullet.com/))
-- Python PyBluz module
+- Python PyBluz 
+- Python Seaborn
 
 # Installation of Prerequisites
 ### PushBullet
@@ -30,13 +31,20 @@ $ sudo apt-get install sense-hat
 $ sudo reboot
 ```
 
-### PyBluz Module
+### PyBluz
 Run the following commands on your Raspberry Pi
 ```bash
 $ sudo apt install bluetooth bluez blueman
 $ pip3 install pybluez
 $ sudo apt install bluez-tools
 ```
+
+### Seaborn
+Run the following commands on your Raspberry Pi
+```bash
+$ sudo pip3 install seaborn
+```
+
 # Programs
 ## Monitor and Notify
 #### Description

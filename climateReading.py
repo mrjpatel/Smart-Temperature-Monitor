@@ -2,13 +2,25 @@ from sense_hat import SenseHat
 import datetime
 import os
 
+"""
+This class is to encapsulate the climate reading object.
+Provides methods to gather from sense hat and check the data against
+config ranges
+"""
+
 
 class ClimateReading:
+    """
+    Init function to allow to create a new reading for use by the reporting
+    """
     def __init__(self, current_date_time, temperature, humidity):
         self.current_date_time = current_date_time
         self.temperature = round(temperature, 2)
         self.humidity = round(humidity, 2)
 
+    """
+    Alt constructor to create instance from sense hat data
+    """
     @classmethod
     def from_sensehat(cls):
         sense = SenseHat()
@@ -21,6 +33,10 @@ class ClimateReading:
 
         return cls(date_time, calculated_temp, humidity)
 
+    """
+    This method is to check if the reading is outside the ranges specifed
+    Returns error string if it is outside configured ranges
+    """
     def outside_config_range(self, range):
         rstr = ""
         if self.temperature < range.min_temperature:
@@ -41,6 +57,9 @@ class ClimateReading:
                 round((self.humidity - range.max_humidity), 1))
         return rstr
 
+    """
+    Static method to get the cpu temp
+    """
     @staticmethod
     def get_cpu_temp():
         res = os.popen("vcgencmd measure_temp").readline()

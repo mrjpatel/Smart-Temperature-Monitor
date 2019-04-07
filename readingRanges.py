@@ -1,5 +1,9 @@
 import json
 
+"""
+This class is for the reading ranges.
+"""
+
 
 class ReadingRanges:
     min_temperature = 20
@@ -7,6 +11,9 @@ class ReadingRanges:
     min_humidity = 50
     max_humidity = 60
 
+    """
+    Method to create custom instance
+    """
     def __init__(
             self,
             min_temperature,
@@ -19,6 +26,10 @@ class ReadingRanges:
         self.min_humidity = min_humidity
         self.max_humidity = max_humidity
 
+    """
+    This method updates the ranges from a json file
+    Params: file path for json file
+    """
     @classmethod
     def update_defaults_from_json(cls, json_file_path):
         with open(json_file_path) as json_file:
@@ -30,6 +41,10 @@ class ReadingRanges:
             cls.max_humidity = data["max_humidity"]
         print("Updated Defaults from {}".format(json_file_path))
 
+    """
+    This creates a ranges instance from a json file
+    Params: file path for json file
+    """
     @classmethod
     def from_json(cls, json_file_path):
         with open(jsonFilePath) as json_file:
@@ -42,6 +57,9 @@ class ReadingRanges:
                 data["max_humidity"]
             )
 
+    """
+    This method validates the json object
+    """
     @staticmethod
     def validate_range_json(data):
         if 'min_temperature' in data and \
