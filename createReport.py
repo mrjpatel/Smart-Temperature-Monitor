@@ -7,6 +7,18 @@ import csv
 class CreateReport:
 
     """
+    Controls the data given from databse to the segregated list
+    and passes it to generate csv
+    """
+    def generate_report(self, range_config_file, report_file_name):
+        ReadingRanges.update_defaults_from_json(range_config_file)
+        print("Generating " + report_file_name + " file ...")
+        temp_hum_data_list = self.get_database_data()
+        report_list = self.get_all_status(temp_hum_data_list)
+        self.generate_csv_file(report_file_name, report_list)
+        print("Successfully generated: " + report_file_name)
+
+    """
     Gets data from database and segregates them into same days list
     """
     def get_database_data(self):
@@ -96,14 +108,6 @@ class CreateReport:
             writer.writeheader()
             for d in data:
                 writer.writerow({'Date': d[0], 'Status': str(d[1])})
-
-    def generate_report(self, range_config_file, report_file_name):
-        ReadingRanges.update_defaults_from_json(range_config_file)
-        print("Generating " + report_file_name + " file ...")
-        temp_hum_data_list = self.get_database_data()
-        report_list = self.get_all_status(temp_hum_data_list)
-        self.generate_csv_file(report_file_name, report_list)
-        print("Successfully generated: " + report_file_name)
 
 
 def main():
