@@ -21,7 +21,6 @@ class MonitorAndNotify:
 
         error = current_reading.outside_config_range(ReadingRanges)
         if error != "":
-            print("Outside Configured Ranages!")
             print("Error: {}".format(error))
             if not Database.has_notified(current_reading.current_date_time):
                 PushBullet.notify(error)
