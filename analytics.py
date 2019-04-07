@@ -11,7 +11,7 @@ class Analytics:
         self.data_set = Database.getAllSenseHatData
 
     def drawkdePlot(self):
-        print(self.data_set)
+        print(*self.data_set)
         print("Drawing KDE Plot...")
         KDEPlot.plot_and_save(
             self.data_set['temperature'],
