@@ -13,7 +13,6 @@ class Analytics:
         print("Drawing KDE Plot...")
         list_temps = Database.get_all_temperature_data()
         list_humidities = Database.get_all_humidity_data()
-
         temps = []
         humidities = []
 
@@ -23,8 +22,8 @@ class Analytics:
             humidities.extend(list(item))
 
         KDEPlot.plot_and_save(
-            list(list_temps),
-            list(list_humidities),
+            temps,
+            humidities,
             self.kdeFileName
         )
         print("Saved Plot as: {}".format(self.kdeFileName))
@@ -32,7 +31,7 @@ class Analytics:
     def drawHistogram(self):
         print("Drawing Histogram...")
 
-        print("Saved Histogram as: {}".format(histogramFileName))
+        print("Saved Histogram as: {}".format(self.histogramFileName))
         pass
 
     def drawPlots(self):
