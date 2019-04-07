@@ -122,7 +122,6 @@ class Database:
             # convert local timestamp to local date
             local_date = Database.get_date_from_timestamp(local_timestamp[0])
             current_date = Database.get_date_from_timestamp(str(time))
-            print(local_date)
             if local_date == current_date:
                 print("Has notified today!")
                 return True
